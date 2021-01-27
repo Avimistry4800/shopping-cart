@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button  id="quantityMinusOne" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input type="text" id = "quantity" class="form-control text-center" value="1">
+                           <button id="quantityPlusOne" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5> $ <span id = "price">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id = "quantityMinusTwo" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id = "quantityTwo" type="text" class="form-control text-center" value="1">
+                           <button id="quantityPlusTwo"  class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id = "priceTwo">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">1278</span> </h5>
+                        <h5>$ <span id="vat">127</span></h5>
+                        <h5>$ <span id="total">1278</span> </h5>
                      </div>
                   </div>
                </div>
@@ -77,6 +77,147 @@
          </div>
       </div>
    </section>
+   <script>
+      // + button eventHolder
+     
+      
+
+        const quantityPlusbtnOne = document.getElementById('quantityPlusOne');
+        const basePriceOne = 1219;
+        const baseVatOne = 102;
+
+        quantityPlusbtnOne.addEventListener('click' , function () {
+         updateQuantityPlus('quantity');
+         updatePricePlus('price',basePriceOne);
+         subTotalPlus('subTotal',basePriceOne);
+         vatUpdatePlus('vat',baseVatOne);
+         updateTotalPlus('total',basePriceOne,baseVatOne);
+       
+        })
+
+
+        const quantityPlusbtnTwo = document.getElementById('quantityPlusTwo');
+        const basePriceTwo = 59;
+        const baseVatTwo = 6;
+
+        quantityPlusbtnTwo.addEventListener('click' , function () {
+         updateQuantityPlus('quantityTwo');
+         updatePricePlus('priceTwo',basePriceTwo);
+         subTotalPlus('subTotal',basePriceTwo);
+         vatUpdatePlus('vat',baseVatTwo);
+         updateTotalPlus('total',basePriceTwo,baseVatTwo);
+
+      })
+// - button enent Handler
+         const quantityminusOne = document.getElementById('quantityMinusOne');
+         
+
+
+        quantityminusOne.addEventListener('click' , function () {
+         updateQuantityMinus('quantity');
+         updatePriceMinus('price',basePriceOne);
+         subTotalMinus('subTotal',basePriceOne);
+         vatUpdateMinus('vat',baseVatOne);
+         updateTotalMinus('total',basePriceOne,baseVatOne);
+
+      })
+
+      const quantityminusTwo = document.getElementById('quantityMinusTwo');
+         
+
+
+        quantityminusTwo.addEventListener('click' , function () {
+         updateQuantityMinus('quantityTwo');
+         updatePriceMinus('priceTwo',basePriceTwo);
+         subTotalMinus('subTotal',basePriceTwo);
+         vatUpdateMinus('vat',baseVatTwo);
+         updateTotalMinus('total',basePriceTwo,baseVatTwo);
+
+      })
+         //quantity function
+        function updateQuantityPlus(id) {
+            const updatedQuantity = document.getElementById(id).value;
+         const currentQuantity = parseFloat(updatedQuantity);
+         const totalQuantity = currentQuantity + 1 ;
+         document.getElementById(id).value = totalQuantity;
+         }
+
+         function updateQuantityMinus(id) {
+         const updatedQuantity = document.getElementById(id).value;
+         const currentQuantity = parseFloat(updatedQuantity);
+         const totalQuantity = currentQuantity - 1 ;
+         document.getElementById(id).value = totalQuantity;
+         }
+         // price function
+         function updatePricePlus(id,basePrice) {
+            const current = document.getElementById(id).innerText;
+         const basePriceNew = basePrice ;
+         const currentPrice = parseFloat(current);
+         const currentTotalPrice = currentPrice + basePriceNew ;
+         document.getElementById(id).innerText = currentTotalPrice;
+         }
+
+
+         function updatePriceMinus(id,basePrice) {
+            const current = document.getElementById(id).innerText;
+         const basePriceNew = basePrice ;
+         const currentPrice = parseFloat(current);
+         const currentTotalPrice = currentPrice - basePriceNew ;
+         document.getElementById(id).innerText = currentTotalPrice;
+         }
+         // total subtotal
+         function subTotalPlus(id,basePrice) {
+            const subTotal = document.getElementById(id).innerText;
+            const basePriceNew = basePrice ;
+         const newSubTotal = parseFloat(subTotal);
+         const newSubTotalUpdate = newSubTotal + basePriceNew;
+         document.getElementById(id).innerText = newSubTotalUpdate;
+          }
+          function subTotalMinus(id,basePrice) {
+            const subTotal = document.getElementById(id).innerText;
+            const basePriceNew = basePrice ;
+         const newSubTotal = parseFloat(subTotal);
+         const newSubTotalUpdate = newSubTotal - basePriceNew;
+         document.getElementById(id).innerText = newSubTotalUpdate;
+          }
+          //total vat
+          function vatUpdatePlus(id,baseVat) {
+         const totalVat = document.getElementById(id).innerText
+         const baseVatNew= baseVat ;
+         const currentVat = parseFloat(totalVat,baseVatNew);
+         const totalCurrentVat= currentVat + baseVatNew ;
+         document.getElementById(id).innerText = totalCurrentVat;
+
+         }
+         function vatUpdateMinus(id,baseVat) {
+         const totalVat = document.getElementById(id).innerText
+         const baseVatNew= baseVat ;
+         const currentVat = parseFloat(totalVat,baseVatNew);
+         const totalCurrentVat= currentVat - baseVatNew ;
+         document.getElementById(id).innerText = totalCurrentVat;
+
+         }
+         //total amount
+         function updateTotalPlus(id,basePrice,baseVat) {
+         const updatedTotal = document.getElementById(id).innerText;
+         const currentTotal = parseFloat(updatedTotal);
+         const basePriceNew = basePrice;
+         const baseVatNew = baseVat;
+         const totalAmount = currentTotal + basePriceNew + baseVatNew ;
+         document.getElementById(id).innerText = totalAmount;
+
+         }
+         
+         function updateTotalMinus(id,basePrice,baseVat) {
+         const updatedTotal = document.getElementById(id).innerText;
+         const currentTotal = parseFloat(updatedTotal);
+         const basePriceNew = basePrice;
+         const baseVatNew = baseVat;
+         const totalAmount = (currentTotal - basePriceNew) - baseVatNew ;
+         document.getElementById(id).innerText = totalAmount;
+
+         }
+   </script>
 </body>
 
 </html>
